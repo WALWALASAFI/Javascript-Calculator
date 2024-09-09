@@ -23,9 +23,11 @@ const Calculator = () => {
 
       // Handle multiple consecutive operators
       if (isOperator(value)) {
-        // Remove the last operator if it exists
+        // Remove the last operator if it exists and not start with a negative sign
         const trimmedInput = newInput.replace(/[\+\-\*\/]$/, '');
-        // Avoid starting with multiple operators
+        if (trimmedInput === '' && value === '-') {
+          return newInput + value; // Handle negative sign
+        }
         if (trimmedInput === '') {
           return newInput;
         }
