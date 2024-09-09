@@ -1,55 +1,53 @@
 import React, { useState } from 'react';
-import Button from './Button';
 
 const Calculator = () => {
-    const [display, setDisplay] = useState('0');
-    const [input, setInput] = useState('');
-    const [operator, setOperator] = useState('');
-    const [firstOperand, setFirstOperand] = useState('');
+  const [display, setDisplay] = useState('0');
+  const [input, setInput] = useState('');
+  
+  const handleClick = (value) => {
+    if (value === '=') {
+      try {
+        // Evaluate the expression
+        setDisplay(eval(input).toString());
+        setInput(eval(input).toString());
+      } catch (error) {
+        setDisplay('Error');
+      }
+    } else if (value === 'C') {
+      // Clear the display and input
+      setDisplay('0');
+      setInput('');
+    } else {
+      // Update the display and input
+      setInput(input + value);
+      setDisplay(input + value);
+    }
+  };
 
-    const handleButtonClick = (value) => {
-        if (value === 'AC') {
-            setDisplay('0');
-            setInput('');
-            setOperator('');
-            setFirstOperand('');
-        } else if (value === '=') {
-            if (firstOperand && operator && input) {
-                try {
-                    const result = eval(`${firstOperand} ${operator} ${input}`);
-                    setDisplay(result);
-                    setInput(result);
-                    setOperator('');
-                    setFirstOperand('');
-                } catch {
-                    setDisplay('Error');
-                }
-            }
-        } else if (['+', '-', '*', '/'].includes(value)) {
-            setFirstOperand(input);
-            setOperator(value);
-            setInput('');
-        } else if (value === '.') {
-            if (!input.includes('.')) {
-                setInput(input + '.');
-                setDisplay(input + '.');
-            }
-        } else {
-            setInput(input + value);
-            setDisplay(input + value);
-        }
-    };
-
-    return (
-        <div className="w-80 mx-auto bg-white rounded-lg shadow-md overflow-hidden">
-            <div id="display" className="bg-gray-800 text-white text-right p-4 text-3xl">{display}</div>
-            <div className="grid grid-cols-4 gap-1">
-                {['AC', '/', '*', '-', '+', '=', '7', '8', '9', '4', '5', '6', '1', '2', '3', '0', '.'].map((item) => (
-                    <Button key={item} value={item} onClick={() => handleButtonClick(item)} />
-                ))}
-            </div>
-        </div>
-    );
+  return (
+    <div id="calculator">
+      <div id="display">{display}</div>
+      <div id="buttons">
+        <button id="clear" onClick={() => handleClick('C')}>C</button>
+        <button id="decimal" onClick={() => handleClick('.')}>.</button>
+        <button id="zero" onClick={() => handleClick('0')}>0</button>
+        <button id="one" onClick={() => handleClick('1')}>1</button>
+        <button id="two" onClick={() => handleClick('2')}>2</button>
+        <button id="three" onClick={() => handleClick('3')}>3</button>
+        <button id="four" onClick={() => handleClick('4')}>4</button>
+        <button id="five" onClick={() => handleClick('5')}>5</button>
+        <button id="six" onClick={() => handleClick('6')}>6</button>
+        <button id="seven" onClick={() => handleClick('7')}>7</button>
+        <button id="eight" onClick={() => handleClick('8')}>8</button>
+        <button id="nine" onClick={() => handleClick('9')}>9</button>
+        <button id="add" onClick={() => handleClick('+')}>+</button>
+        <button id="subtract" onClick={() => handleClick('-')}>-</button>
+        <button id="multiply" onClick={() => handleClick('*')}>*</button>
+        <button id="divide" onClick={() => handleClick('/')}>/</button>
+        <button id="equals" onClick={() => handleClick('=')}>=</button>
+      </div>
+    </div>
+  );
 };
 
 export default Calculator;
