@@ -2,13 +2,20 @@
 /* eslint-disable no-useless-escape */
 
 // Import React and other dependencies
+import React from 'react'; // This is necessary for JSX, so keep this import
 import { connect } from 'react-redux';
 import { evaluate } from 'mathjs'; // Import mathjs for evaluation
 import { updateInput, setDisplay, clear } from './actions'; // Import action creators
 import './index.css'; // Import your CSS
 
 // Define the Calculator component
-const Calculator = ({ display, input, updateInput, setDisplay, clear }) => {
+const Calculator = ({
+  display,
+  input,
+  updateInput,
+  setDisplay,
+  clear,
+}) => {
   const handleClick = (value) => {
     if (value === '=') {
       try {
@@ -39,13 +46,11 @@ const Calculator = ({ display, input, updateInput, setDisplay, clear }) => {
     } else if (value === '0' && (input === '' || /[+\-*/]$/.test(input))) {
       // Avoid appending zero if there's no preceding number or after an operator
       return;
-    } else {
+    } else if (input === '0' && value !== '.') {
       // Handle leading zeros: only append if not in the middle of a number
-      if (input === '0' && value !== '.') {
-        updateInput(`${value}`);
-      } else {
-        updateInput(`${input}${value}`);
-      }
+      updateInput(`${value}`);
+    } else {
+      updateInput(`${input}${value}`);
     }
   };
 
