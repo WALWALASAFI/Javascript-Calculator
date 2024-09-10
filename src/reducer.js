@@ -1,6 +1,5 @@
-// reducer.js
 import { UPDATE_INPUT, SET_DISPLAY, CLEAR } from './actions';
-import { evaluate } from 'mathjs';
+// Removed the unused 'evaluate' import
 
 const initialState = {
   input: '',
@@ -9,7 +8,7 @@ const initialState = {
 
 const calculatorReducer = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_INPUT:
+    case UPDATE_INPUT: {
       let newInput = action.payload;
       
       // Remove leading zeros if there's no decimal point and more than one digit
@@ -42,6 +41,7 @@ const calculatorReducer = (state = initialState, action) => {
         input: newInput,
         display: newInput,
       };
+    }
 
     case SET_DISPLAY:
       return {
