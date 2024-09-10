@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-escape */
-/* eslint-disable no-eval */
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { evaluate } from 'mathjs'; // Import the evaluate function from mathjs
 
 const Calculator = () => {
   const [display, setDisplay] = useState('0');
@@ -45,7 +45,7 @@ const Calculator = () => {
       try {
         // Replace non-numeric characters and evaluate the expression
         const sanitizedInput = input.replace(/[^-()\d/*+.]/g, '');
-        const result = new Function(`return ${sanitizedInput}`)(); // Using Function constructor instead of eval
+        const result = evaluate(sanitizedInput); // Use mathjs to evaluate the expression
         setDisplay(result.toString());
         setInput(result.toString());
       } catch (error) {
