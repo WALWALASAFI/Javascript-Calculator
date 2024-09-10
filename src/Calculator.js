@@ -1,9 +1,12 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-useless-escape */
+// Import React and other dependencies
 import { connect } from 'react-redux';
 import { updateInput, setDisplay, clear } from './actions'; // Import action creators
-import { evaluate } from 'mathjs'; // Place this import before './actions'
+import { evaluate } from 'mathjs'; // Import mathjs for evaluation
 import './index.css'; // Import your CSS
 
+// Define the Calculator component
 const Calculator = ({ display, input, updateInput, setDisplay, clear }) => {
   const handleClick = (value) => {
     if (value === '=') {
@@ -32,7 +35,10 @@ const Calculator = ({ display, input, updateInput, setDisplay, clear }) => {
       if (!lastPart.includes('.')) {
         updateInput(`${input}${value}`);
       }
-    } else if (value !== '0' || (input !== '' && !/[+\-*/]$/.test(input))) {
+    } else if (value === '0' && (input === '' || /[+\-*/]$/.test(input))) {
+      // Avoid appending zero if there's no preceding number or after an operator
+      return;
+    } else {
       // Handle leading zeros: only append if not in the middle of a number
       if (input === '0' && value !== '.') {
         updateInput(`${value}`);
@@ -74,6 +80,7 @@ const Calculator = ({ display, input, updateInput, setDisplay, clear }) => {
   );
 };
 
+// Map state and dispatch to props
 const mapStateToProps = (state) => ({
   display: state.display,
   input: state.input,

@@ -12,19 +12,22 @@ const calculatorReducer = (state = initialState, action) => {
 
       // Remove leading zeros if there's no decimal point and more than one digit
       if (
-        newInput.startsWith('0') &&
-        newInput.length > 1 &&
-        !['+', '-', '*', '/'].includes(newInput[1]) &&
-        newInput[1] !== '.'
+        newInput.startsWith('0')
+        && newInput.length > 1
+        && !['+', '-', '*', '/'].includes(newInput[1])
+        && newInput[1] !== '.'
       ) {
         newInput = newInput.replace(/^0+/, '');
         if (newInput === '' || newInput[0] === '.') newInput = `0${newInput}`;
       }
 
       // Handle multiple decimal points in the same segment
-      const parts = newInput.split(/(\D)/);
-      const lastPart = parts[parts.length - 1];
-      if (lastPart.includes('.') && (lastPart.match(/\./g) || []).length > 1) {
+      const parts = newInput.split(/([+\-*/])/);
+      const lastPart = parts.pop();
+      if (
+        lastPart.includes('.')
+        && (lastPart.match(/\./g) || []).length > 1
+      ) {
         newInput = state.input;
       }
 
