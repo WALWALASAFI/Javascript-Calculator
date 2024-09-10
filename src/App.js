@@ -1,11 +1,15 @@
 /* eslint-disable no-unused-vars */
+import React from 'react';
+import { Provider } from 'react-redux';
 import Calculator from './Calculator';
-import './index.css';
+import store from './store'; // Ensure this path is correct
 
 const App = () => (
-  <div className="App">
-    <Calculator />
-  </div>
+  <Provider store={store}>
+    <div className="App">
+      <Calculator />
+    </div>
+  </Provider>
 );
 
 export default App;
