@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-escape */
+/* eslint-disable comma-dangle */
+
 import React from 'react'; // This is necessary for JSX, so keep this import
 import ReactDOM from 'react-dom/client'; // Updated import
 import './index.css'; // Import Tailwind CSS

@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-escape */
+
 // Import React and other dependencies
 import { connect } from 'react-redux';
-import { updateInput, setDisplay, clear } from './actions'; // Import action creators
 import { evaluate } from 'mathjs'; // Import mathjs for evaluation
+import { updateInput, setDisplay, clear } from './actions'; // Import action creators
 import './index.css'; // Import your CSS
 
 // Define the Calculator component
