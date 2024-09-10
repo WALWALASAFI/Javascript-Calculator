@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-escape */
+/* eslint-disable object-curly-newline */
 
 // Import React and other dependencies
 import React from 'react'; // This is necessary for JSX, so keep this import
@@ -45,7 +46,7 @@ const Calculator = ({
       }
     } else if (value === '0' && (input === '' || /[+\-*/]$/.test(input))) {
       // Avoid appending zero if there's no preceding number or after an operator
-      return;
+      return; // This is necessary to prevent further execution in this condition
     } else if (input === '0' && value !== '.') {
       // Handle leading zeros: only append if not in the middle of a number
       updateInput(`${value}`);
@@ -60,27 +61,129 @@ const Calculator = ({
         {display}
       </div>
       <div className="grid grid-cols-4 gap-2 mt-4">
-        <button id="clear" className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400" onClick={() => handleClick('C')}>C</button>
-        <button id="decimal" className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400" onClick={() => handleClick('.')}>.</button>
-        <button id="zero" className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400" onClick={() => handleClick('0')}>0</button>
-        <button id="divide" className="p-4 text-xl bg-orange-500 text-white rounded-lg hover:bg-orange-600" onClick={() => handleClick('/')}>/</button>
+        <button
+          id="clear"
+          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
+          onClick={() => handleClick('C')}
+        >
+          C
+        </button>
+        <button
+          id="decimal"
+          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
+          onClick={() => handleClick('.')}
+        >
+          .
+        </button>
+        <button
+          id="zero"
+          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
+          onClick={() => handleClick('0')}
+        >
+          0
+        </button>
+        <button
+          id="divide"
+          className="p-4 text-xl bg-orange-500 text-white rounded-lg hover:bg-orange-600"
+          onClick={() => handleClick('/')}
+        >
+          /
+        </button>
 
-        <button id="one" className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400" onClick={() => handleClick('1')}>1</button>
-        <button id="two" className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400" onClick={() => handleClick('2')}>2</button>
-        <button id="three" className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400" onClick={() => handleClick('3')}>3</button>
-        <button id="multiply" className="p-4 text-xl bg-orange-500 text-white rounded-lg hover:bg-orange-600" onClick={() => handleClick('*')}>*</button>
+        <button
+          id="one"
+          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
+          onClick={() => handleClick('1')}
+        >
+          1
+        </button>
+        <button
+          id="two"
+          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
+          onClick={() => handleClick('2')}
+        >
+          2
+        </button>
+        <button
+          id="three"
+          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
+          onClick={() => handleClick('3')}
+        >
+          3
+        </button>
+        <button
+          id="multiply"
+          className="p-4 text-xl bg-orange-500 text-white rounded-lg hover:bg-orange-600"
+          onClick={() => handleClick('*')}
+        >
+          *
+        </button>
 
-        <button id="four" className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400" onClick={() => handleClick('4')}>4</button>
-        <button id="five" className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400" onClick={() => handleClick('5')}>5</button>
-        <button id="six" className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400" onClick={() => handleClick('6')}>6</button>
-        <button id="subtract" className="p-4 text-xl bg-orange-500 text-white rounded-lg hover:bg-orange-600" onClick={() => handleClick('-')}>-</button>
+        <button
+          id="four"
+          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
+          onClick={() => handleClick('4')}
+        >
+          4
+        </button>
+        <button
+          id="five"
+          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
+          onClick={() => handleClick('5')}
+        >
+          5
+        </button>
+        <button
+          id="six"
+          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
+          onClick={() => handleClick('6')}
+        >
+          6
+        </button>
+        <button
+          id="subtract"
+          className="p-4 text-xl bg-orange-500 text-white rounded-lg hover:bg-orange-600"
+          onClick={() => handleClick('-')}
+        >
+          -
+        </button>
 
-        <button id="seven" className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400" onClick={() => handleClick('7')}>7</button>
-        <button id="eight" className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400" onClick={() => handleClick('8')}>8</button>
-        <button id="nine" className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400" onClick={() => handleClick('9')}>9</button>
-        <button id="add" className="p-4 text-xl bg-orange-500 text-white rounded-lg hover:bg-orange-600" onClick={() => handleClick('+')}>+</button>
+        <button
+          id="seven"
+          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
+          onClick={() => handleClick('7')}
+        >
+          7
+        </button>
+        <button
+          id="eight"
+          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
+          onClick={() => handleClick('8')}
+        >
+          8
+        </button>
+        <button
+          id="nine"
+          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
+          onClick={() => handleClick('9')}
+        >
+          9
+        </button>
+        <button
+          id="add"
+          className="p-4 text-xl bg-orange-500 text-white rounded-lg hover:bg-orange-600"
+          onClick={() => handleClick('+')}
+        >
+          +
+        </button>
 
-        <button id="equals" className="col-span-4 p-4 text-xl bg-orange-500 text-white rounded-lg hover:bg-orange-600" onClick={() => handleClick('=')}>=</button>
+        <button
+          id="equals"
+          className="col-span-4 p-4 text-xl bg-orange-500 text-white rounded-lg hover:bg-orange-600"
+          onClick={() => handleClick('=')}
+        >
+          =
+        </button>
       </div>
     </div>
   );
