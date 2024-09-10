@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateInput, setDisplay, clear } from './actions'; // Import action creators
@@ -10,7 +9,7 @@ const Calculator = ({ display, input, updateInput, setDisplay, clear }) => {
     if (value === '=') {
       try {
         // Remove unnecessary spaces and ensure valid format
-        let sanitizedInput = input
+        const sanitizedInput = input
           .replace(/[^-()\d/*+.]/g, '') // Remove invalid characters
           .replace(/(\d)([+\-*/])(\d)/g, '$1$2$3') // Fix misplaced operators
           .replace(/([+\-*/])(\1)+/g, '$1') // Handle consecutive operators
@@ -33,10 +32,7 @@ const Calculator = ({ display, input, updateInput, setDisplay, clear }) => {
       if (!lastPart.includes('.')) {
         updateInput(`${input}${value}`);
       }
-    } else if (value === '0' && (input === '' || /[+\-*/]$/.test(input))) {
-      // Avoid appending zero if there's no preceding number or after an operator
-      return;
-    } else {
+    } else if (value !== '0' || (input !== '' && !/[+\-*/]$/.test(input))) {
       // Handle leading zeros: only append if not in the middle of a number
       if (input === '0' && value !== '.') {
         updateInput(`${value}`);
