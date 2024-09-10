@@ -18,15 +18,22 @@ const Calculator = ({
   clear,
 }) => {
   const handleClick = (value) => {
+    // Function to sanitize and correct the input string
+    const sanitizeInput = (input) => {
+      return input
+        .replace(/[^-()\d/*+.]/g, '') // Remove invalid characters
+        .replace(/(\d)([+\-*/])(\d)/g, '$1$2$3') // Fix misplaced operators
+        .replace(/([+\-*/])(\1)+/g, '$1') // Handle consecutive operators
+        .replace(/([+\-*/])(\d+)([+\-*/])$/, '$2$3') // Remove trailing operator
+        .replace(/(\d+)([+\-*/])$/, '$1') // Remove trailing operators
+        .replace(/(\d+)(\d+)([+\-*/])/g, '$1.$2') // Fix numbers without operator in between
+        .replace(/(\d+)\.(\d+)/g, '$1.$2'); // Remove extra decimals
+    };
+
     if (value === '=') {
       try {
-        // Remove unnecessary spaces and ensure valid format
-        const sanitizedInput = input
-          .replace(/[^-()\d/*+.]/g, '') // Remove invalid characters
-          .replace(/(\d)([+\-*/])(\d)/g, '$1$2$3') // Fix misplaced operators
-          .replace(/([+\-*/])(\1)+/g, '$1') // Handle consecutive operators
-          .replace(/([+\-*/])(\d+)([+\-*/])$/, '$2$3') // Remove trailing operator
-          .replace(/(\d+)([+\-*/])$/, '$1'); // Remove trailing operators
+        // Sanitize the input before evaluating
+        const sanitizedInput = sanitizeInput(input);
 
         // Evaluate the sanitized input
         const result = evaluate(sanitizedInput);
@@ -46,12 +53,18 @@ const Calculator = ({
       }
     } else if (value === '0' && (input === '' || /[+\-*/]$/.test(input))) {
       // Avoid appending zero if there's no preceding number or after an operator
-      return; // This is necessary to prevent further execution in this condition
+      return; // Necessary to prevent further execution in this condition
     } else if (input === '0' && value !== '.') {
       // Handle leading zeros: only append if not in the middle of a number
       updateInput(`${value}`);
     } else {
-      updateInput(`${input}${value}`);
+      // Handle operator input
+      if (/[+\-*/]$/.test(input) && /[+\-*/]/.test(value)) {
+        // Replace the last operator if another operator is pressed
+        updateInput(`${input.slice(0, -1)}${value}`);
+      } else {
+        updateInput(`${input}${value}`);
+      }
     }
   };
 
