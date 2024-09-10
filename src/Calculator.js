@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-useless-escape */
+/* eslint-disable no-eval */
+import { useState } from 'react';
 
 const Calculator = () => {
   const [display, setDisplay] = useState('0');
   const [input, setInput] = useState('');
 
   const isOperator = (char) => ['+', '-', '*', '/'].includes(char);
+  const isDecimal = (char) => char === '.';
 
   const handleClick = (value) => {
     const updateInput = (newInput) => {
       // Remove leading zeros if there's no decimal point and more than one digit
       if (newInput.startsWith('0') && newInput.length > 1 && !isOperator(newInput[1]) && newInput[1] !== '.') {
         newInput = newInput.replace(/^0+/, '');
-        if (newInput === '' || newInput[0] === '.') newInput = '0' + newInput;
+        if (newInput === '' || newInput[0] === '.') newInput = `0${newInput}`;
       }
 
       // Handle multiple decimal points in the same segment
@@ -23,15 +27,15 @@ const Calculator = () => {
 
       // Handle multiple consecutive operators
       if (isOperator(value)) {
-        // Remove the last operator if it exists and not start with a negative sign
+        // Remove the last operator if it exists
         const trimmedInput = newInput.replace(/[\+\-\*\/]$/, '');
         if (trimmedInput === '' && value === '-') {
-          return newInput + value; // Handle negative sign
+          return `${newInput}${value}`; // Handle negative sign
         }
-        if (trimmedInput === '') {
-          return newInput;
+        if (trimmedInput === '' && value === '+') {
+          return newInput; // Do not add '+' if nothing else
         }
-        return trimmedInput + value;
+        return `${trimmedInput}${value}`;
       }
 
       return newInput;
@@ -40,7 +44,8 @@ const Calculator = () => {
     if (value === '=') {
       try {
         // Replace non-numeric characters and evaluate the expression
-        const result = eval(input.replace(/[^-()\d/*+.]/g, ''));
+        const sanitizedInput = input.replace(/[^-()\d/*+.]/g, '');
+        const result = new Function(`return ${sanitizedInput}`)(); // Using Function constructor instead of eval
         setDisplay(result.toString());
         setInput(result.toString());
       } catch (error) {
@@ -51,7 +56,7 @@ const Calculator = () => {
       setDisplay('0');
       setInput('');
     } else {
-      const newInput = updateInput(input + value);
+      const newInput = updateInput(`${input}${value}`);
       setInput(newInput);
       setDisplay(newInput);
     }

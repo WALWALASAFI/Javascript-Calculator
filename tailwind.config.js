@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/**/*.{js,jsx,ts,tsx}',  // Changed to single quotes
+    './src/**/*.{js,jsx,ts,tsx}', // Changed to single quotes
   ],
   theme: {
     extend: {},
