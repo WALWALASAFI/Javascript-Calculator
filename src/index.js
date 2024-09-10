@@ -9,5 +9,5 @@ ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById('root') // No trailing comma needed here
+  document.getElementById('root') // eslint-disable-line comma-dangle
 );
