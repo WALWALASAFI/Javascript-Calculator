@@ -2,7 +2,7 @@
  ![alt text](image/SharedScreenshot.jpg)
 
 
-You can check the live dimo of project [here](javascript-calculator-git-calculator-walwalasafis-projects.vercel.app)
+You can check the live dimo of project [here](https://javascript-calculator-git-calculator-walwalasafis-projects.vercel.app/)
 #### The JavaScript Calculator is a simple, interactive web-based calculator built using HTML, CSS, and JavaScript. It provides basic arithmetic functionalities such as addition, subtraction, multiplication, and division. The project aims to showcase fundamental web development skills and JavaScript programming concepts.
 
 
