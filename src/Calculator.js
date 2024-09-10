@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-escape */
+/* eslint-disable no-eval */
 import React, { useState } from 'react';
 import { evaluate } from 'mathjs'; // Import the evaluate function from mathjs
 
