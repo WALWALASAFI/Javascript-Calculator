@@ -1,5 +1,5 @@
 # Javascript - Calculator
- ![alt text](image/SharedScreenshot.jpg)
+![alt text](image/SharedScreenshot.jpg)
 
 
 You can check the live dimo of project [here](https://javascript-calculator-git-calculator-walwalasafis-projects.vercel.app/)
@@ -79,8 +79,8 @@ Open your terminal or command prompt. Navigate to the directory where you want t
 
 
 # Author 🔵✅
-◻ Github: WALWALA SAFI (https://github.com/WALWALASAFI/product-landing-page.git)
+◻ Github: [walwala safi](https://github.com/WALWALASAFI/product-landing-page.git)
 
-◻ Linkedin:  walwala safi (https://www.linkedin.com/in/walwala-safi-65b56530a/)
+◻ Linkedin:  [walwala safi](https://www.linkedin.com/in/walwala-safi-65b56530a/)
 
-◻ Email: walwala safi (walwalasafi99@gmail.com)
+◻ Email: [walwala safi](walwalasafi99@gmail.com)

@@ -1,5 +1,3 @@
-// actions.js
-
 export const UPDATE_DISPLAY = 'UPDATE_DISPLAY';
 export const PERFORM_OPERATION = 'PERFORM_OPERATION';
 export const CLEAR_DISPLAY = 'CLEAR_DISPLAY';

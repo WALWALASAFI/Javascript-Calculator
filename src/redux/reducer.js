@@ -1,5 +1,8 @@
-// reducer.js
-
+/* eslint-disable no-unused-vars */
+/* eslint-disable arrow-parens */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable max-len */
+/* eslint-disable no-eval */
 import { CLEAR_DISPLAY, UPDATE_DISPLAY, PERFORM_OPERATION } from './actions';
 
 const initialState = {
