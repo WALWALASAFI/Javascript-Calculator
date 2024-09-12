@@ -1,70 +1,19 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-useless-escape */
-/* eslint-disable object-curly-newline */
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateDisplay, performOperation, clearDisplay } from './redux/actions';
 
-// Import React and other dependencies
-import React from 'react'; // This is necessary for JSX, so keep this import
-import { connect } from 'react-redux';
-import { evaluate } from 'mathjs'; // Import mathjs for evaluation
-import { updateInput, setDisplay, clear } from './actions'; // Import action creators
-import './index.css'; // Import your CSS
+const Calculator = () => {
+  const dispatch = useDispatch();
+  const display = useSelector(state => state.display);
 
-// Define the Calculator component
-const Calculator = ({
-  display,
-  input,
-  updateInput,
-  setDisplay,
-  clear,
-}) => {
-  const handleClick = (value) => {
-    // Function to sanitize and correct the input string
-    const sanitizeInput = (input) => {
-      return input
-        .replace(/[^-()\d/*+.]/g, '') // Remove invalid characters
-        .replace(/(\d)([+\-*/])(\d)/g, '$1$2$3') // Fix misplaced operators
-        .replace(/([+\-*/])(\1)+/g, '$1') // Handle consecutive operators
-        .replace(/([+\-*/])(\d+)([+\-*/])$/, '$2$3') // Remove trailing operator
-        .replace(/(\d+)([+\-*/])$/, '$1') // Remove trailing operators
-        .replace(/(\d+)(\d+)([+\-*/])/g, '$1.$2') // Fix numbers without operator in between
-        .replace(/(\d+)\.(\d+)/g, '$1.$2'); // Remove extra decimals
-    };
-
+  // Handle button click events
+  const handleButtonClick = (value) => {
     if (value === '=') {
-      try {
-        // Sanitize the input before evaluating
-        const sanitizedInput = sanitizeInput(input);
-
-        // Evaluate the sanitized input
-        const result = evaluate(sanitizedInput);
-        setDisplay(result.toString());
-        updateInput(result.toString());
-      } catch (error) {
-        setDisplay('Error');
-      }
+      dispatch(performOperation());
     } else if (value === 'C') {
-      clear();
-    } else if (value === '.') {
-      // Handle decimal points: add only if there's no existing decimal in the last number
-      const parts = input.split(/([+\-*/])/);
-      const lastPart = parts.pop();
-      if (!lastPart.includes('.')) {
-        updateInput(`${input}${value}`);
-      }
-    } else if (value === '0' && (input === '' || /[+\-*/]$/.test(input))) {
-      // Avoid appending zero if there's no preceding number or after an operator
-      return; // Necessary to prevent further execution in this condition
-    } else if (input === '0' && value !== '.') {
-      // Handle leading zeros: only append if not in the middle of a number
-      updateInput(`${value}`);
+      dispatch(clearDisplay());
     } else {
-      // Handle operator input
-      if (/[+\-*/]$/.test(input) && /[+\-*/]/.test(value)) {
-        // Replace the last operator if another operator is pressed
-        updateInput(`${input.slice(0, -1)}${value}`);
-      } else {
-        updateInput(`${input}${value}`);
-      }
+      dispatch(updateDisplay(value));
     }
   };
 
@@ -73,145 +22,29 @@ const Calculator = ({
       <div id="display" className="bg-gray-200 p-4 text-right text-3xl font-bold rounded-t-lg">
         {display}
       </div>
-      <div className="grid grid-cols-4 gap-2 mt-4">
+      <div className="grid grid-cols-4 gap-2">
+        {/* Number and operator buttons */}
+        {['7', '8', '9', '+', '4', '5', '6', '-', '1', '2', '3', '*', '0', '.', '=', '/'].map(value => (
+          <button
+            key={value}
+            id={value === '=' ? 'equals' : value === '0' ? 'zero' : value === '1' ? 'one' : value === '2' ? 'two' : value === '3' ? 'three' : value === '4' ? 'four' : value === '5' ? 'five' : value === '6' ? 'six' : value === '7' ? 'seven' : value === '8' ? 'eight' : value === '9' ? 'nine' : value === '+' ? 'add' : value === '-' ? 'subtract' : value === '*' ? 'multiply' : value === '/' ? 'divide' : 'decimal'}
+            className="p-4 bg-blue-200 rounded hover:bg-gray-300"
+            onClick={() => handleButtonClick(value)}
+          >
+            {value}
+          </button>
+        ))}
+        {/* Clear button */}
         <button
           id="clear"
-          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
-          onClick={() => handleClick('C')}
+          className="p-4 bg-blue-500 text-white rounded hover:bg-red-600 col-span-4"
+          onClick={() => handleButtonClick('C')}
         >
           C
-        </button>
-        <button
-          id="decimal"
-          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
-          onClick={() => handleClick('.')}
-        >
-          .
-        </button>
-        <button
-          id="zero"
-          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
-          onClick={() => handleClick('0')}
-        >
-          0
-        </button>
-        <button
-          id="divide"
-          className="p-4 text-xl bg-orange-500 text-white rounded-lg hover:bg-orange-600"
-          onClick={() => handleClick('/')}
-        >
-          /
-        </button>
-
-        <button
-          id="one"
-          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
-          onClick={() => handleClick('1')}
-        >
-          1
-        </button>
-        <button
-          id="two"
-          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
-          onClick={() => handleClick('2')}
-        >
-          2
-        </button>
-        <button
-          id="three"
-          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
-          onClick={() => handleClick('3')}
-        >
-          3
-        </button>
-        <button
-          id="multiply"
-          className="p-4 text-xl bg-orange-500 text-white rounded-lg hover:bg-orange-600"
-          onClick={() => handleClick('*')}
-        >
-          *
-        </button>
-
-        <button
-          id="four"
-          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
-          onClick={() => handleClick('4')}
-        >
-          4
-        </button>
-        <button
-          id="five"
-          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
-          onClick={() => handleClick('5')}
-        >
-          5
-        </button>
-        <button
-          id="six"
-          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
-          onClick={() => handleClick('6')}
-        >
-          6
-        </button>
-        <button
-          id="subtract"
-          className="p-4 text-xl bg-orange-500 text-white rounded-lg hover:bg-orange-600"
-          onClick={() => handleClick('-')}
-        >
-          -
-        </button>
-
-        <button
-          id="seven"
-          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
-          onClick={() => handleClick('7')}
-        >
-          7
-        </button>
-        <button
-          id="eight"
-          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
-          onClick={() => handleClick('8')}
-        >
-          8
-        </button>
-        <button
-          id="nine"
-          className="p-4 text-xl bg-gray-300 rounded-lg hover:bg-gray-400"
-          onClick={() => handleClick('9')}
-        >
-          9
-        </button>
-        <button
-          id="add"
-          className="p-4 text-xl bg-orange-500 text-white rounded-lg hover:bg-orange-600"
-          onClick={() => handleClick('+')}
-        >
-          +
-        </button>
-
-        <button
-          id="equals"
-          className="col-span-4 p-4 text-xl bg-orange-500 text-white rounded-lg hover:bg-orange-600"
-          onClick={() => handleClick('=')}
-        >
-          =
         </button>
       </div>
     </div>
   );
 };
 
-// Map state and dispatch to props
-const mapStateToProps = (state) => ({
-  display: state.display,
-  input: state.input,
-});
-
-const mapDispatchToProps = {
-  updateInput,
-  setDisplay,
-  clear,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Calculator);
+export default Calculator;

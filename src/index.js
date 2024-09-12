@@ -2,14 +2,19 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable comma-dangle */
 
-import React from 'react'; // This is necessary for JSX, so keep this import
-import ReactDOM from 'react-dom/client'; // Updated import
-import './index.css'; // Import Tailwind CSS
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import rootReducer from './redux/reducer';
 import App from './App';
+import './index.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root')); // eslint-disable-line comma-dangle
-root.render(
-  <React.StrictMode>
+const store = createStore(rootReducer);
+
+ReactDOM.render(
+  <Provider store={store}>
     <App />
-  </React.StrictMode>
+  </Provider>,
+  document.getElementById('root')
 );

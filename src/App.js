@@ -1,15 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { Provider } from 'react-redux';
 import Calculator from './Calculator';
-import store from './store'; // Ensure this path is correct
 
-const App = () => (
-  <Provider store={store}>
-    <div className="App">
+function App() {
+  return (
+    <div className="flex items-center justify-center h-screen">
       <Calculator />
     </div>
-  </Provider>
-);
+  );
+}
 
 export default App;
