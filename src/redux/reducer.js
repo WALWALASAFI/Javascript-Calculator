@@ -1,8 +1,8 @@
 /* eslint-disable no-case-declarations */
 /* eslint-disable no-useless-escape */
 
-import { CLEAR_DISPLAY, UPDATE_DISPLAY, PERFORM_OPERATION } from './actions';
 import { evaluate } from 'mathjs'; // Import the evaluate function from mathjs
+import { CLEAR_DISPLAY, UPDATE_DISPLAY, PERFORM_OPERATION } from './actions';
 
 const initialState = {
   display: '0',
