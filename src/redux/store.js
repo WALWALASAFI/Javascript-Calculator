@@ -1,20 +1,32 @@
-import { useDispatch } from 'react-redux'; // Import useDispatch if you're using Redux in a React app
-import { performOperation, clearDisplay, updateDisplay } from './actions'; // Import actions if they are in a separate file
+import React from 'react';
+import { useDispatch } from 'react-redux'; // Import useDispatch from 'react-redux'
+import { performOperation, clearDisplay, updateDisplay } from './actions'; // Import actions from your actions file
 
-const handleButtonClick = (value) => {
-  const dispatch = useDispatch(); // Ensure you have dispatch from Redux
+const Calculator = () => {
+  const dispatch = useDispatch(); // Use dispatch from Redux
 
-  if (value === '=') {
-    dispatch(performOperation());
-  } else if (value === 'C') {
-    dispatch(clearDisplay());
-  } else if (['+', '-', '*', '/'].includes(value)) {
-    dispatch(updateDisplay(value));
-    // Update previous input and operator if needed
-  } else {
-    dispatch(updateDisplay(value));
-  }
+  const handleButtonClick = (value) => {
+    if (value === '=') {
+      dispatch(performOperation());
+    } else if (value === 'C') {
+      dispatch(clearDisplay());
+    } else if (['+', '-', '*', '/'].includes(value)) {
+      dispatch(updateDisplay(value));
+    } else {
+      dispatch(updateDisplay(value));
+    }
+  };
+
+  return (
+    <div>
+      {/* Example buttons */}
+      <button onClick={() => handleButtonClick('1')}>1</button>
+      <button onClick={() => handleButtonClick('+')}>+</button>
+      <button onClick={() => handleButtonClick('=')}>=</button>
+      <button onClick={() => handleButtonClick('C')}>C</button>
+      {/* Add more buttons as needed */}
+    </div>
+  );
 };
 
-// Example usage (if you're using React):
-// <button onClick={() => handleButtonClick('1')}>1</button>
+export default Calculator;

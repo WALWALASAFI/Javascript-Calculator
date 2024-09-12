@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable arrow-parens */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable max-len */
-/* eslint-disable no-eval */
+/* eslint-disable no-case-declarations */
+/* eslint-disable no-useless-escape */
+
 import { CLEAR_DISPLAY, UPDATE_DISPLAY, PERFORM_OPERATION } from './actions';
 
 const initialState = {
@@ -19,9 +17,9 @@ const calculatorReducer = (state = initialState, action) => {
         lastResult: null,
       };
 
-    case UPDATE_DISPLAY:
+    case UPDATE_DISPLAY: {
       const value = action.payload;
-      const parts = state.display.split(/[\+\-\*\/]/);
+      const parts = state.display.split(/[+\-*/]/);
       const lastPart = parts[parts.length - 1];
 
       // Handle multiple leading zeros
@@ -41,8 +39,9 @@ const calculatorReducer = (state = initialState, action) => {
         ...state,
         display: newDisplay,
       };
+    }
 
-    case PERFORM_OPERATION:
+    case PERFORM_OPERATION: {
       try {
         // Use a safer eval or a library for evaluation
         const result = eval(state.display); // WARNING: eval can be dangerous, consider using a library for evaluation
@@ -57,6 +56,7 @@ const calculatorReducer = (state = initialState, action) => {
           display: 'Error',
         };
       }
+    }
 
     default:
       return state;
@@ -64,3 +64,6 @@ const calculatorReducer = (state = initialState, action) => {
 };
 
 export default calculatorReducer;
+
+/* eslint-enable no-case-declarations */
+/* eslint-enable no-useless-escape */
