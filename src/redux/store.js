@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDispatch } from 'react-redux'; // Import useDispatch from 'react-redux'
 import { performOperation, clearDisplay, updateDisplay } from './actions'; // Import actions from your actions file
 

@@ -2,6 +2,7 @@
 /* eslint-disable no-useless-escape */
 
 import { CLEAR_DISPLAY, UPDATE_DISPLAY, PERFORM_OPERATION } from './actions';
+import { evaluate } from 'mathjs'; // Import the evaluate function from mathjs
 
 const initialState = {
   display: '0',
@@ -43,8 +44,8 @@ const calculatorReducer = (state = initialState, action) => {
 
     case PERFORM_OPERATION: {
       try {
-        // Use a safer eval or a library for evaluation
-        const result = eval(state.display); // WARNING: eval can be dangerous, consider using a library for evaluation
+        // Use mathjs for evaluation
+        const result = evaluate(state.display);
         return {
           ...state,
           display: result.toString(),
